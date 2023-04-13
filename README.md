@@ -1,2 +1,2 @@
 # Shopee-Tokolaptop-Sync
- Sync stocks between Shopee and Tokolaptop (Request of Mumtaz)
+ Sync item stocks between Shopee and Tokolaptop through Edge.
