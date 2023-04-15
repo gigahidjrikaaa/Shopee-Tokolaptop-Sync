@@ -9,9 +9,6 @@ import os
 import sys
 from tkinter import *
 
-driver = webdriver.Edge()
-driver.get('https://shopee.co.id/gaminggearoutlet')
-
 def login(driver):
     userEmail = "gigahidjrikaaa@gmail.com"
     userPassword = "gigahidjrikaaa"
@@ -52,7 +49,7 @@ def login(driver):
 
 def getItemData(driver):
     # Wait for the page to load
-    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, '_44qnta')))
+    WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'dR8kXc')))
 
     # Find item name. If not found, print error message
     try:
@@ -75,13 +72,18 @@ def getItemData(driver):
     # Find item stock. If not found, print error message
     try:
         global item_stock
-        # the 10th element of the class MCCLkq is the stock
-        item_stock = driver.find_elements(By.CLASS_NAME, 'dR8kXc')[10]
-        # only get the text inside the div tag
-        item_stock = item_stock.find_element(By.TAG_NAME, 'div').text
+        # iterate through the list of dR8kXc class
+        items_stock = driver.find_elements(By.CLASS_NAME, 'dR8kXc')
+        print(items_stock)
+        for item in items_stock:
+            # find the item stock inside the span tag inside the class dR8kXc
+            item_stock = item.find_element(By.TAG_NAME, 'div')
+            # if the item stock is not empty, break the loop
+            if item_stock.text != "":
+                break
     except:
         item_stock = "NOT FOUND"
-        sys.exit()
+        # sys.exit()
 
 def showData():
     # Create a new tkinter window
@@ -116,19 +118,22 @@ def showData():
     # Start the tkinter window
     window.mainloop()
 
+driver = webdriver.Edge()
+driver.get('https://shopee.co.id/gaminggearoutlet')
+
 # Wait for the page to load
 WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'shopee-searchbar-input__input')))
 # Find the search bar
 search_bar = driver.find_element(By.CLASS_NAME, 'shopee-searchbar-input__input')
 # Type the search query
-search_bar.send_keys('laptop')
+search_bar.send_keys('Rexus F30')
 # Press enter
 search_bar.send_keys(Keys.RETURN)
 
 # Wait for the page to load
 WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.CLASS_NAME, 'shopee-search-item-result__items')))
 # Find the first item
-first_item = driver.find_element(By.CLASS_NAME, 'shopee-search-item-result__items')
+first_item = driver.find_element(By.CLASS_NAME, 'VTjd7p')
 # Click the first item
 first_item.click()
 
